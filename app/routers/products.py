@@ -11,12 +11,11 @@ router = APIRouter(prefix="/products", tags=["Products"])
 def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     return crud.create_product(db=db, product=product)
 
-# List products with pagination
 @router.get("/", response_model=list[schemas.Product])
 def read_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return crud.get_products(db=db, skip=skip, limit=limit)
 
-# Delete product (admin only)
+
 @router.delete("/{product_id}", summary="Delete a product (admin only)")
 def delete_product(
     product_id: int,

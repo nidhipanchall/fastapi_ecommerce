@@ -35,7 +35,7 @@ class Token(BaseModel):
     token_type: str
 
 
-# ---------- Cart ----------
+# Cart
 class CartItemBase(BaseModel):
     product_id: int
     quantity: int

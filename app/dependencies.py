@@ -6,10 +6,9 @@ from . import models
 from .database import SessionLocal
 from .auth import SECRET_KEY, ALGORITHM
 
-# Token URL for OAuth2
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
 
-# DB session dependency
+
 def get_db():
     db = SessionLocal()
     try:
@@ -17,7 +16,7 @@ def get_db():
     finally:
         db.close()
 
-# Get current user from JWT token
+
 def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
@@ -40,7 +39,6 @@ def get_current_user(
         raise credentials_exception
     return user
 
-# Get current admin user
 def get_current_admin_user(user: models.User = Depends(get_current_user)):
     if user.is_admin != 1:
         raise HTTPException(
